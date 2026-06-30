@@ -32,5 +32,18 @@ def inicio():
         }
     )
 
+# Obtener todos los libros
+@app.get('/libros')
+def obtener_libros():
+    return jsonify(list(libros.values()))
+
+# Obtener un libro por ID
+@app.get('/libros/<id>')
+def obtener_libro(id):
+    libro = libros.get(int(id))
+    if libro:
+        return jsonify(libro)
+    return jsonify({"mensaje": "Libro no encontrado"}), 404
+
 if __name__ == "__main__":
     app.run(debug=True)
